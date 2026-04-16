@@ -53,6 +53,11 @@ type YamlConfig struct {
 	JWTSyncWithRedis bool `yaml:"jwt_sync_with_redis"`
 }
 
+var YamlConfigForCheck struct {
+	RedisCheck            bool `yaml:"redis"`
+	JWTSyncWithRedisCheck bool `yaml:"jwt_sync_with_redis"`
+}
+
 // Load loads configuration from environment variables.
 func Load() (*Config, error) {
 	// Load .env file if it exists (ignore error if not found).

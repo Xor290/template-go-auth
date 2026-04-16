@@ -237,7 +237,6 @@ func TestAuthService_GetUserByID_NotFound(t *testing.T) {
 	ctx := context.Background()
 	userID := uint(999)
 
-	// Setup expectations
 	mockRepo.On("FindByID", ctx, userID).Return(nil, domain.ErrUserNotFound)
 
 	// Execute
