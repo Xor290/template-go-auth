@@ -115,7 +115,13 @@ func AuthMiddlewareWithConfig(cfg AuthMiddlewareConfig) gin.HandlerFunc {
 		tokenFamily, _ := claims["token_family"].(string)
 
 		//Check Redis and active session
-		if cfg.RedisEnabled && cfg.JWTSyncWithRedis && cfg.SessionRepo != nil && tokenFamily != "" {
+		if cfg.RedisEnabled && cfg.JWTSyncWithRedis && cfg.SessionRepo != nil {
+			if tokenFamily == "" {
+				c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+					"error": "missing token_family claim",
+				})
+				return
+			}
 			ctx, cancel := context.WithTimeout(c.Request.Context(), 5*time.Second)
 			defer cancel()
 
