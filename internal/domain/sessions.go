@@ -16,10 +16,6 @@ type Session struct {
 }
 
 var (
-	ErrSessionNotFound = NewError("session not found")
-	ErrSessionExpired  = NewError("session expired")
+	ErrSessionNotFound = errors.New("session not found")
+	ErrSessionExpired  = errors.New("session expired")
 )
-
-func NewError(message string) error {
-	return errors.New(message)
-}
